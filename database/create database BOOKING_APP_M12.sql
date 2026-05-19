@@ -3,7 +3,7 @@ GO
 
 IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = 'backend_user')
 BEGIN
-    CREATE LOGIN backend_user WITH PASSWORD = '1234';
+    CREATE LOGIN backend_user WITH PASSWORD = 'BookingApp2026!';
 END
 GO
 
