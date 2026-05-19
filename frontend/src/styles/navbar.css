@@ -1,0 +1,77 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.navbar-brand a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  background: linear-gradient(to right, #fff, var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.navbar-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--accent-color);
+}
+
+.hub-link {
+  padding: 6px 14px;
+  border: 1px solid var(--accent-color);
+  border-radius: 20px;
+  color: var(--accent-color) !important;
+}
+
+.hub-link:hover {
+  background: var(--accent-color);
+  color: var(--bg-primary) !important;
+}
+
+.user-greeting {
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 600;
+  border-left: 1px solid rgba(255,255,255,0.2);
+  padding-left: 20px;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ef4444;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  background: #ef4444;
+  color: white;
+}
