@@ -1,21 +1,23 @@
- -- //////////////////////////////////////////////////////
-CREATE LOGIN backend_user WITH PASSWORD = '1234';
-USE BOOKING_APP_M12;
-
-CREATE USER backend_user FOR LOGIN backend_user;
-
-ALTER ROLE db_owner ADD MEMBER backend_user;
--- //////////////////////////////////////////////////////
 USE master;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = 'backend_user')
+BEGIN
+    CREATE LOGIN backend_user WITH PASSWORD = '1234';
+END
 GO
 
 DROP DATABASE IF EXISTS BOOKING_APP_M12;
 GO
 
-create database BOOKING_APP_M12
+create database BOOKING_APP_M12;
 GO
 
 USE BOOKING_APP_M12;
+GO
+
+CREATE USER backend_user FOR LOGIN backend_user;
+ALTER ROLE db_owner ADD MEMBER backend_user;
 GO
 
 CREATE TABLE roles (
