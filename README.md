@@ -18,7 +18,7 @@ docker compose up -d --build
 
 Esto automáticamente levantará:
 1. **Base de Datos (puerto 11433):** Iniciada en contenedor y configurada/migrada de forma automática por el backend.
-2. **Backend (puerto 3000):** Servidor API que gestiona la lógica y las reservas.
+2. **Backend (puerto 3300):** Servidor API que gestiona la lógica y las reservas.
 3. **Frontend (puerto 8080):** Servido por Nginx de forma optimizada.
 
 ---

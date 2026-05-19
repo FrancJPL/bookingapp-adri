@@ -18,7 +18,7 @@ services:
     container_name: booking_backend
     command: sh -c "npm run db:setup && npm start"
     ports:
-      - "3000:3000"
+      - "3300:3000"
     environment:
       - PORT=3000
       - DB_USER=sa
