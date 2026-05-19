@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: booking_db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=aG2135ag
+    ports:
+      - "11433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    restart: always
+
+  backend:
+    build: ./backend
+    container_name: booking_backend
+    command: sh -c "npm run db:setup && npm start"
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_USER=sa
+      - DB_PASSWORD=aG2135ag
+      - DB_SERVER=db
+      - DB_PORT=1433
+      - DB_NAME=BOOKING_APP_M12
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    build: ./frontend
+    container_name: booking_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  sql_data:
