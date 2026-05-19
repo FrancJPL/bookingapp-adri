@@ -28,6 +28,8 @@ services:
       - DB_NAME=BOOKING_APP_M12
     depends_on:
       - db
+    volumes:
+      - ./database:/database
     restart: always
 
   frontend:
