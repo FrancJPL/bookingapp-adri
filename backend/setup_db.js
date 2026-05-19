@@ -22,8 +22,11 @@ async function runSQLFile(pool, filePath) {
         statement = statement.trim();
         if (statement.length === 0) continue;
         
-        // Skip USE statements because we are already connected to the correct DB
-        if (statement.toUpperCase().startsWith("USE ")) {
+        // Skip USE, DROP DATABASE and CREATE DATABASE statements because we handle this programmatically
+        const stmtUpper = statement.toUpperCase();
+        if (stmtUpper.startsWith("USE ") || 
+            stmtUpper.includes("DROP DATABASE") || 
+            stmtUpper.includes("CREATE DATABASE")) {
             continue;
         }
 
@@ -93,10 +96,18 @@ async function setup() {
         pool = await sql.connect(dbConfig);
         console.log(`Connected to database '${dbName}'.`);
         
-        const sqlFilePath = path.join(__dirname, "..", "database", "create database BOOKING_APP_M12.sql");
-        console.log(`Running database initialization script from: ${sqlFilePath}...`);
-        await runSQLFile(pool, sqlFilePath);
-        console.log("✅ Database schema initialized successfully.");
+        // Check if database is already initialized (e.g., table 'usuarios' exists)
+        const tableCheck = await pool.request().query(`SELECT * FROM sys.tables WHERE name = 'usuarios'`);
+        const isInitialized = tableCheck.recordset.length > 0;
+
+        if (!isInitialized) {
+            const sqlFilePath = path.join(__dirname, "..", "database", "create database BOOKING_APP_M12.sql");
+            console.log(`Running database initialization script from: ${sqlFilePath}...`);
+            await runSQLFile(pool, sqlFilePath);
+            console.log("✅ Database schema initialized successfully.");
+        } else {
+            console.log("Database tables already initialized. Skipping schema script.");
+        }
         
         // Now run migration logic
         console.log("Running migrations...");
